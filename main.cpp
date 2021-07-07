@@ -40,8 +40,26 @@ int main() {
     return -2;
   }
 
-  // TODO: Event loop pooling also deserves separate class.
+  // TODO: add NULL check for renderer and texture
+  SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 
+  SDL_Texture *texture  = SDL_CreateTexture(
+    renderer,
+    SDL_PIXELFORMAT_RGBA8888,
+    SDL_TEXTUREACCESS_STATIC,
+    SCREEN_WIDTH,
+    SCREEN_HEIGHT);
+
+  Uint32 *buffer = new Uint32[SCREEN_HEIGHT * SCREEN_WIDTH];
+  memset(buffer, 255, SCREEN_WIDTH * SCREEN_HEIGHT * sizeof(Uint32));
+
+  SDL_UpdateTexture(texture, NULL, buffer, SCREEN_WIDTH * sizeof(Uint32));
+  SDL_RenderClear(renderer);
+  SDL_RenderCopy(renderer, texture, NULL, NULL);
+  SDL_RenderPresent(renderer);
+
+
+  // TODO: Event loop pooling also deserves separate class.
   SDL_Event event;
   bool quitProgram = false;
 
