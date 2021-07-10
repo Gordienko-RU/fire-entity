@@ -4,7 +4,8 @@ run: executable
 	@./executable
 
 executable:
-	@g++ src/main.cpp -o executable -I include -L lib -l SDL2-2.0.0
+  # It's ugly to include each cpp file manually, re-work. 
+	@g++ src/main.cpp -o executable -I include src/Window/Window.cpp -L lib -l SDL2-2.0.0
 
 clean:
 	@rm executable
