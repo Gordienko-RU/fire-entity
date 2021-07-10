@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 
 #include "./Window/Window.h"
+#include "./EventLoop/EventLoop.h"
 
 using namespace std;
 
@@ -16,22 +17,8 @@ int main() {
   Window window("fire-entity", 800, 600);
   window.setPixelsValue(255);
 
-  // TODO: Event loop pooling also deserves separate class.
-  SDL_Event event;
-  bool quitProgram = false;
-
-  while (!quitProgram) {
-    while (SDL_PollEvent(&event)) {
-      switch (event.type) {
-        case SDL_QUIT: {
-          SDL_Quit();
-          quitProgram = true;
-        }
-      }
-    }
-  }
-
-  cout << "Programm ended" << endl;
+  EventLoop eventLoop;
+  eventLoop.start();
 
   return 0;
 }
