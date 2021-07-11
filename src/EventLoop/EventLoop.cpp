@@ -6,7 +6,7 @@ EventLoop::EventLoop() {
   this->loopInProgress = false;
 }
 
-void EventLoop::start() {
+void EventLoop::startListening() {
   this->loopInProgress = true;
 
   while (this->loopInProgress) {
@@ -21,6 +21,6 @@ void EventLoop::start() {
   }
 }
 
-void EventLoop::end() {
+void EventLoop::stopListening() {
   this->loopInProgress = false;
 }

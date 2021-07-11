@@ -18,7 +18,7 @@ int main() {
   window.setPixelsValue(255);
 
   EventLoop eventLoop;
-  eventLoop.start();
+  eventLoop.startListening();
 
   return 0;
 }

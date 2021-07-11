@@ -11,8 +11,8 @@ class EventLoop {
     bool loopInProgress;
   public:
     EventLoop();
-    void start();
-    void end();
+    void startListening();
+    void stopListening();
 };
 
 #endif // !EVENT_LOOP
