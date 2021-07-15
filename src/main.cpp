@@ -17,17 +17,6 @@ int main() {
   Window window("fire-entity", 800, 600);
   window.setSolidBgColor(255);
 
-  // TODO: test code, remove
-  Uint8 blackRGBARepresentation[] = { 1, 1, 1, 1 };
-
-  for (int i = 3600; i < 7800; i++) {
-    Uint32 *pixel = window.getPixel(i);
-    window.setPixelColor(pixel, blackRGBARepresentation);
-  }
-
-  window.updateWindowContent();
-  //----------
-
   EventLoop eventLoop;
   eventLoop.startListening();
 
