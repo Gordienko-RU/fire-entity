@@ -24,6 +24,8 @@ int main() {
     Uint32 *pixel = window.getPixel(i);
     window.setPixelColor(pixel, blackRGBARepresentation);
   }
+
+  window.updateWindowContent();
   //----------
 
   EventLoop eventLoop;

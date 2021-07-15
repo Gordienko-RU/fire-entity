@@ -17,11 +17,10 @@ class Window {
     int windowWidth;
     int windowHeight;
     int pixelsAmount;
-
-    void updateWindowContent() const;
   public:
     Window(string name, int width, int height);
     ~Window();
+    void updateWindowContent() const;
     void setSolidBgColor(int rgbValue) const;
     void setPixelColor(Uint32 *pixel, Uint8 *colorValues) const;
     Uint32* getPixel(int index) const;
