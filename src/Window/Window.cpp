@@ -45,7 +45,20 @@ void Window::updateWindowContent() const {
   SDL_RenderPresent(this->renderer);
 }
 
-void Window::setPixelsValue(int rgbValue) const {
+void Window::setPixelColor(Uint32 *pixel, Uint8 *colorValues) const {
+  Uint8 *pToSinglePixel = (Uint8 *) pixel;
+  const int amountOfBytesToSet = sizeof(Uint32);
+
+  for (int i = 0; i < amountOfBytesToSet; i++) {
+    pToSinglePixel[i] = colorValues[i];
+  }
+}
+
+Uint32* Window::getPixel(int index) const {
+  return this->pixelsBuffer + index;
+}
+
+void Window::setSolidBgColor(int rgbValue) const {
   memset(this->pixelsBuffer, rgbValue, this->pixelsAmount * sizeof(Uint32));
   this->updateWindowContent();
 }

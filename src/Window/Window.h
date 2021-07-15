@@ -22,7 +22,9 @@ class Window {
   public:
     Window(string name, int width, int height);
     ~Window();
-    void setPixelsValue(int rgbValue) const;
+    void setSolidBgColor(int rgbValue) const;
+    void setPixelColor(Uint32 *pixel, Uint8 *colorValues) const;
+    Uint32* getPixel(int index) const;
 };
 
 #endif // !WINDOW
