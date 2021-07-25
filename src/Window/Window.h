@@ -23,6 +23,7 @@ class Window {
     void updateWindowContent() const;
     void setSolidBgColor(int rgbValue) const;
     void setPixelColor(Uint32 *pixel, Uint8 *colorValues) const;
+    void setPixelColorByIndex(int index, Uint8 *colorValues) const;
     Uint32* getPixel(int index) const;
 };
 

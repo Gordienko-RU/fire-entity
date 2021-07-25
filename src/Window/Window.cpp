@@ -49,9 +49,20 @@ void Window::setPixelColor(Uint32 *pixel, Uint8 *colorValues) const {
   Uint8 *pToSinglePixel = (Uint8 *) pixel;
   const int amountOfBytesToSet = sizeof(Uint32);
 
-  for (int i = 0; i < amountOfBytesToSet; i++) {
+  for (Uint8 i = 0; i < amountOfBytesToSet; i++) {
     pToSinglePixel[i] = colorValues[i];
   }
+}
+
+void Window::setPixelColorByIndex(int index, Uint8 *colorValues) const {
+  Uint32 color = 0;
+
+  for (Uint8 i = 0; i < sizeof(colorValues); i++) {
+    color += colorValues[i];
+    color <<= 8;
+  }
+
+  this->pixelsBuffer[index] = color;
 }
 
 Uint32* Window::getPixel(int index) const {
