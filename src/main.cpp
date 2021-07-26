@@ -17,14 +17,6 @@ int main() {
   Window window("fire-entity", 800, 600);
   window.setSolidBgColor(255);
 
-  Uint8 blueColor[] = { 255, 255, 255, 255 };
-
-  for (int i = 30000; i < 80000; i++) {
-    window.setPixelColorByIndex(i, blueColor);
-  } 
-
-  window.updateWindowContent();
-
   EventLoop eventLoop;
   eventLoop.startListening();
 

@@ -56,8 +56,9 @@ void Window::setPixelColor(Uint32 *pixel, Uint8 *colorValues) const {
 
 void Window::setPixelColorByIndex(int index, Uint8 *colorValues) const {
   Uint32 color = 0;
+  const int amountOfBytesToSet = sizeof(Uint32);
 
-  for (Uint8 i = 0; i < sizeof(colorValues); i++) {
+  for (Uint8 i = 0; i < amountOfBytesToSet; i++) {
     color += colorValues[i];
     color <<= 8;
   }
