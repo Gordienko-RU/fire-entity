@@ -14,8 +14,6 @@ class Window {
 
     Uint32 *pixelsBuffer;
 
-    int windowWidth;
-    int windowHeight;
     int pixelsAmount;
   public:
     Window(string name, int width, int height);
@@ -25,6 +23,8 @@ class Window {
     void setPixelColor(Uint32 *pixel, Uint8 *colorValues) const;
     void setPixelColorByIndex(int index, Uint8 *colorValues) const;
     Uint32* getPixel(int index) const;
+    int windowWidth;
+    int windowHeight;
 };
 
 #endif // !WINDOW
