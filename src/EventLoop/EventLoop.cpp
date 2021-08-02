@@ -24,3 +24,7 @@ void EventLoop::startListening() {
 void EventLoop::stopListening() {
   this->loopInProgress = false;
 }
+
+void EventLoop::setWindow(Window *window) {
+  this->window = window;
+}

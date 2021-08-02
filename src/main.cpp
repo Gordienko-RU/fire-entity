@@ -18,6 +18,7 @@ int main() {
   window.setSolidBgColor(255);
 
   EventLoop eventLoop;
+  eventLoop.setWindow(&window);
   eventLoop.startListening();
 
   return 0;
