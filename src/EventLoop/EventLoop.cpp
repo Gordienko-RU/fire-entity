@@ -20,17 +20,16 @@ void EventLoop::startListening() {
 
   bool maxValueAchieved = false;
 
+  // TODO: this logic should be integratable
   while (this->loopInProgress) {
     Uint8 colors[] = { red, green, blue, alfa };
 
     switch(red) {
       case 255: {
-        cout << "255 achieved" << endl;
         maxValueAchieved = true;
         break;
       }
       case 0: {
-        cout << "0 achieved" << endl;
         maxValueAchieved = false;
         break;
       }
