@@ -4,7 +4,7 @@
 
 #include "./Point.h"
 
-Point::Point(int windowHeight, int windowWidth) {
+Point::Point(int windowWidth, int windowHeight) {
   this->positionX = rand() % windowWidth;
   this->positionY = rand() % windowHeight;
 }

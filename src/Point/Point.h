@@ -7,11 +7,10 @@
 using namespace std;
 
 class Point {
-  private:
-    double positionX;
-    double positionY;
   public:
-    Point(int windowHeight, int windowWidth);
+    int positionX;
+    int positionY;
+    Point(int windowWidth, int windowHeight);
 };
 
 #endif // !POINT

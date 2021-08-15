@@ -1,8 +1,11 @@
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "./Window/Window.h"
-#include "./EventLoop/EventLoop.h"
+#include "./Swarm/Swarm.h"
+#include "./Point/Point.h"
 
 using namespace std;
 
@@ -13,13 +16,35 @@ int main() {
 
     return -1;
   };
+  
+  srand(time(0));
 
-  Window window("fire-entity", 800, 600);
-  window.setSolidBgColor(255);
+  const int WINDOW_HEIGHT = 600;
+  const int WINDOW_WIDTH = 800;
+  const int PIXELS_AMOUNT = WINDOW_HEIGHT * WINDOW_WIDTH;
+  const int SWARM_SIZE = PIXELS_AMOUNT / 40;
 
-  EventLoop eventLoop;
-  eventLoop.setWindow(&window);
-  eventLoop.startListening();
+  Window * window = new Window("fire-entity", WINDOW_WIDTH, WINDOW_HEIGHT);
+  window->setSolidBgColor(0);
+
+  Swarm swarm(SWARM_SIZE, window);
+  swarm.fillWindow();
+
+  SDL_Event event;
+  bool loopInProgress = true;
+
+  while (loopInProgress) {
+    while (SDL_PollEvent(&event)) {
+      switch (event.type) {
+        case SDL_QUIT: {
+          SDL_Quit();
+          loopInProgress = false;
+        }
+      }
+    }
+  }
+
+  delete window;
 
   return 0;
 }

@@ -3,17 +3,22 @@
 
 #include <SDL2/SDL.h>
 #include <string>
+
 #include "../Point/Point.h"
+#include "../Window/Window.h"
 
 using namespace std;
 
 class Swarm {
   private:
+    Window * window;
     int size;
-    Point ** points;
   public:
-    Swarm(int size, int windowHeight, int windowWidth);
+    Point ** points;
+    Swarm(int size, Window * window);
     ~Swarm();
+
+    void fillWindow() const;
 };
 
 #endif // !SWARM
