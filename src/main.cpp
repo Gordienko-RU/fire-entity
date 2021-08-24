@@ -22,7 +22,7 @@ int main() {
   const int WINDOW_WIDTH = 800;
   const int WINDOW_HEIGHT = 600;
   const int PIXELS_AMOUNT = WINDOW_HEIGHT * WINDOW_WIDTH;
-  const int SWARM_SIZE = PIXELS_AMOUNT / 40;
+  const int SWARM_SIZE = PIXELS_AMOUNT / 20;
 
   Window window("fire-entity", WINDOW_WIDTH, WINDOW_HEIGHT);
   Swarm swarm(SWARM_SIZE, WINDOW_WIDTH, WINDOW_HEIGHT);

@@ -8,13 +8,13 @@ using namespace std;
 
 class Point {
   public:
-    static const int INITIAL_POINT_VALUE = -1;
+    int x;
+    int y;
+    int stepX;
+    int stepY;
 
-    int positionX;
-    int positionY;
-
-    Point();
-    void updatePosition(int maxXDimension, int maxYDimension);
+    Point(int maxX, int maxY);
+    void updatePosition();
 };
 
 #endif // !POINT

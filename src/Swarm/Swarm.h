@@ -11,15 +11,18 @@ using namespace std;
 
 class Swarm {
   private:
-    int maxXDimension;
-    int maxYDimension;
+    int maxX;
+    int maxY;
     int size;
+    Uint8 *pointColor;
+
+    void fixPointMovingDirection(Point *point);
   public:
     Point ** points;
-    Swarm(int size, int maxXDimension, int maxYDimension);
+    Swarm(int size, int maxX, int maxY);
     ~Swarm();
 
-    void fillWindowWithRandomPoints(Window &window) const;
+    void fillWindowWithRandomPoints(Window &window);
 };
 
 #endif // !SWARM
