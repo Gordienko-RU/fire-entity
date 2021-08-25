@@ -8,8 +8,9 @@
 Point::Point(int maxX, int maxY) {
   this->x = rand() % maxX;
   this->y = rand() % maxY;
-  this->stepX = (4 * (rand() % 2)) - 2;
-  this->stepY = (4 * (rand() % 2)) - 2;
+  // TODO: We can make step boundaries random as well, so point will have random step range.
+  this->stepX = (2 * (rand() % 2)) - 1;
+  this->stepY = (2 * (rand() % 2)) - 1;
 }
 
 void Point::updatePosition() {

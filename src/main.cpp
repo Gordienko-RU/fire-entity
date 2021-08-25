@@ -22,18 +22,19 @@ int main() {
   const int WINDOW_WIDTH = 800;
   const int WINDOW_HEIGHT = 600;
   const int PIXELS_AMOUNT = WINDOW_HEIGHT * WINDOW_WIDTH;
-  const int SWARM_SIZE = PIXELS_AMOUNT / 20;
+  const int SWARM_SIZE = 1000;
 
   Window window("fire-entity", WINDOW_WIDTH, WINDOW_HEIGHT);
   Swarm swarm(SWARM_SIZE, WINDOW_WIDTH, WINDOW_HEIGHT);
+  window.setSolidBgColor(0);
 
   SDL_Event event;
   bool loopInProgress = true;
 
   while (loopInProgress) {
-    window.setSolidBgColor(0);
     swarm.fillWindowWithRandomPoints(window);
     window.updateWindowContent();
+    window.setSolidBgColor(0);
 
     while (SDL_PollEvent(&event)) {
       switch (event.type) {

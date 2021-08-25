@@ -11,7 +11,7 @@ Swarm::Swarm(int size, int maxX, int maxY):
   size(size),
   maxX(maxX),
   maxY(maxY) {
-  Uint8 initialPointColor[] = { 255, 255, 255, 0 };
+  Uint8 initialPointColor[] = { 255, 255, 255, 255 };
   this->pointColor = initialPointColor;
   this->points = new Point * [size];
 
@@ -24,12 +24,20 @@ Swarm::~Swarm() {
   delete [] this->points;
 }
 
+bool Swarm::isPointXCoordinateOutOfDimension(int x) const {
+  return x < 0 || x > this->maxX;
+}
+
+bool Swarm::isPointYCoordinateOutOfDimension(int y) const {
+  return y < 0 || y > this->maxY;
+}
+
 void Swarm::fixPointMovingDirection(Point * point) {
-  if (point->x < 0 || point->x > this->maxX) {
+  if (this->isPointXCoordinateOutOfDimension(point->x)) {
     point->stepX *= -1;
   }
 
-  if (point->y < 0 || point->y > this->maxY) {
+  if (this->isPointYCoordinateOutOfDimension(point->y)) {
     point->stepY *= -1;
   }
 }
@@ -39,14 +47,16 @@ void Swarm::fillWindowWithRandomPoints(Window &window) {
     Point *point = this->points[i];
     point->updatePosition();
 
-    const int pointIndex = (point->y - 1) * this->maxX + point->x;
-    const int indexOutOfDimension = pointIndex < 0 || pointIndex > window.pixelsAmount;
+    const bool pointOutOfDimension =
+      this->isPointXCoordinateOutOfDimension(point->x)
+      || this->isPointYCoordinateOutOfDimension(point->y);
 
-    if (indexOutOfDimension) {
+    if (pointOutOfDimension) {
       this->fixPointMovingDirection(point);
       return;
     }
 
+    const int pointIndex = (point->y - 1) * this->maxX + point->x;
     window.setPixelColorByIndex(pointIndex, this->pointColor);
   }
 }

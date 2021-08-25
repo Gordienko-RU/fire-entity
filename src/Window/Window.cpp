@@ -72,5 +72,4 @@ Uint32* Window::getPixel(int index) const {
 
 void Window::setSolidBgColor(int rgbValue) const {
   memset(this->pixelsBuffer, rgbValue, this->pixelsAmount * sizeof(Uint32));
-  this->updateWindowContent();
 }

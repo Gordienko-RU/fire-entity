@@ -17,6 +17,8 @@ class Swarm {
     Uint8 *pointColor;
 
     void fixPointMovingDirection(Point *point);
+    bool isPointXCoordinateOutOfDimension(int x) const;
+    bool isPointYCoordinateOutOfDimension(int y) const;
   public:
     Point ** points;
     Swarm(int size, int maxX, int maxY);
