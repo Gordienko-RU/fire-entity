@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <stdlib.h>
 #include <iostream>
+#include <algorithm> 
 
 #include "./Swarm.h"
 #include "../Point/Point.h"
@@ -11,8 +12,9 @@ Swarm::Swarm(int size, int maxX, int maxY):
   size(size),
   maxX(maxX),
   maxY(maxY) {
-  Uint8 initialPointColor[] = { 255, 255, 255, 255 };
-  this->pointColor = initialPointColor;
+  this->pointColor = new Uint8[4];
+  fill_n(this->pointColor, 4, 0);
+
   this->points = new Point * [size];
 
   for (int i = 0; i < size; i++) {
