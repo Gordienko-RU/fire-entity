@@ -32,8 +32,8 @@ int main() {
   bool loopInProgress = true;
 
   while (loopInProgress) {
-    window.setSolidBgColor(255);
     swarm.fillWindowWithRandomPoints(window);
+    window.blurPixels();
     window.updateWindowContent();
 
     while (SDL_PollEvent(&event)) {

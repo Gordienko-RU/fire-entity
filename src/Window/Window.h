@@ -13,10 +13,12 @@ class Window {
     SDL_Texture *texture;
 
     Uint32 *pixelsBuffer;
+    Uint32 *tempPixelsBuffer;
   public:
     Window(string name, int width, int height);
     ~Window();
 
+    void blurPixels();
     void updateWindowContent() const;
     void setSolidBgColor(int rgbValue) const;
     void setPixelColor(Uint32 *pixel, Uint8 *colorValues) const;
