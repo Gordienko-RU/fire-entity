@@ -1,5 +1,6 @@
 #include <string>
 #include <SDL2/SDL.h>
+#include <iostream>
 
 #include "./Window.h"
 
@@ -36,9 +37,9 @@ void Window::blurPixels() {
       const int participantIndex = participantIndexes[indexOfParticipantIndex];
       // TODO: looks like such check is not enough since in fact we have 2 dimensional array
       const bool pixelWithinDimension = participantIndex > 0 && participantIndex < this->pixelsAmount;
-
-      if (pixelWithinDimension) {
-        return;
+      
+      if (!pixelWithinDimension) {
+        continue;
       }
 
       Uint32 participatedPixel = this->tempPixelsBuffer[participantIndex];
@@ -54,7 +55,7 @@ void Window::blurPixels() {
       totalRed / participantsAmount,
       totalGreen / participantsAmount,
       totalBlue / participantsAmount,
-      0,
+      255,
     };
 
     this->setPixelColorByIndex(targetPixelIndex, bluredColorDescriptor);
