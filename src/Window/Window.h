@@ -12,9 +12,8 @@ class Window {
     SDL_Renderer *renderer;
     SDL_Texture *texture;
 
-    Uint32 *pixelsBuffer;
-    Uint32 *tempPixelsBuffer;
   public:
+    Uint32 *pixelsBuffer;
     Window(string name, int width, int height);
     ~Window();
 
