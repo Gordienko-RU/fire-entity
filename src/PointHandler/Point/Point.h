@@ -2,7 +2,6 @@
 #define POINT
 
 #include <SDL2/SDL.h>
-#include <string>
 
 using namespace std;
 

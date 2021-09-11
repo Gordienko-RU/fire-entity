@@ -7,19 +7,19 @@
 #include "./Swarm/Swarm.h"
 #include "./PointHandler/PointHandler.h"
 #include "./BoxBlur/BoxBlur.h"
+#include "./EventLoop/EventLoop.h"
 
 using namespace std;
 
-int main() {
-  if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-    cout << "Error while initialization" << endl;
-    cout << "The error is " << SDL_GetError() << endl;
-
-    return -1;
-  };
-  
+void initializeApp() {
+  // TODO: potentially can have errors here - add error handler
+  SDL_Init(SDL_INIT_VIDEO);
   srand(time(0));
+}
 
+int main() {
+  initializeApp();
+  
   const int WINDOW_WIDTH = 800;
   const int WINDOW_HEIGHT = 600;
   const int PIXELS_AMOUNT = WINDOW_HEIGHT * WINDOW_WIDTH;
@@ -31,23 +31,8 @@ int main() {
   PointHandler pointHandler(WINDOW_WIDTH, WINDOW_HEIGHT);
   Swarm swarm(SWARM_SIZE, pointHandler);
 
-  SDL_Event event;
-  bool loopInProgress = true;
-
-  while (loopInProgress) {
-    swarm.fillWindowWithRandomPoints(window);
-    boxBlur.applyBlur();
-    window.updateWindowContent();
-
-    while (SDL_PollEvent(&event)) {
-      switch (event.type) {
-        case SDL_QUIT: {
-          SDL_Quit();
-          loopInProgress = false;
-        }
-      }
-    }
-  }
+  EventLoop eventLoop(window, swarm, boxBlur);
+  eventLoop.start();
 
   return 0;
 }
