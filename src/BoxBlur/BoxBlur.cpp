@@ -5,13 +5,16 @@
 
 #include "./BoxBlur.h"
 #include "../Window/Window.h"
+#include "../PointHandler/PointHandler.h"
 
-void BoxBlur::applyBlur(Window &window) {
-  const int pixelsAmount = window.pixelsAmount;
+BoxBlur::BoxBlur(Window &window): window(window) {}
+
+void BoxBlur::applyBlur() const {
+  const int pixelsAmount = this->window.pixelsAmount;
 
   Uint32 bufferSnapshot[pixelsAmount];
-  Uint32 *originalBuffer = window.pixelsBuffer;
-  
+  Uint32 *originalBuffer = this->window.pixelsBuffer;
+
   // TODO: there are better ways to copy array
   for (int i = 0; i < pixelsAmount; i++) {
     bufferSnapshot[i] = originalBuffer[i];
@@ -21,8 +24,7 @@ void BoxBlur::applyBlur(Window &window) {
     NOTE: We are picking average color of all pixels in 3x3 matrix(target pixel neighbors),
     and calculate average r,g,b values to set them to target pixel.
   */
-
-  const int windowWidth = window.windowWidth;
+  const int windowWidth = this->window.windowWidth;
 
   for (int targetPixelIndex = 0; targetPixelIndex < pixelsAmount; targetPixelIndex++) {
     const int participantIndexes[] = {
@@ -52,21 +54,11 @@ void BoxBlur::applyBlur(Window &window) {
         continue;
       }
 
-      Uint32 participatedPixel = bufferSnapshot[participantIndex];
+      const Uint32 participatedPixel = bufferSnapshot[participantIndex];
 
-      Uint8 participantRed = participatedPixel >> 24;
-      Uint8 participantGreen = participatedPixel >> 16;
-      Uint8 participantBlue = participatedPixel >> 8;
-
-      const bool pixelHasBGColor =
-        (participantRed == 255) &&
-        (participantGreen == 255) &&
-        (participantBlue == 255);
-
-
-      if (pixelHasBGColor) {
-        continue;
-      }
+      const Uint8 participantRed = participatedPixel >> 24;
+      const Uint8 participantGreen = participatedPixel >> 16;
+      const Uint8 participantBlue = participatedPixel >> 8;
 
       totalRed += participantRed;
       totalGreen += participantGreen;
@@ -82,6 +74,6 @@ void BoxBlur::applyBlur(Window &window) {
       255,
     };
 
-    window.setPixelColorByIndex(targetPixelIndex, bluredColorDescriptor);
+    this->window.setPixelColorByIndex(targetPixelIndex, bluredColorDescriptor);
   }
 }

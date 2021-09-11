@@ -5,7 +5,7 @@
 
 #include "./Window/Window.h"
 #include "./Swarm/Swarm.h"
-#include "./Point/Point.h"
+#include "./PointHandler/PointHandler.h"
 #include "./BoxBlur/BoxBlur.h"
 
 using namespace std;
@@ -26,16 +26,17 @@ int main() {
   const int SWARM_SIZE = 1;
 
   Window window("fire-entity", WINDOW_WIDTH, WINDOW_HEIGHT);
-  Swarm swarm(SWARM_SIZE, WINDOW_WIDTH, WINDOW_HEIGHT);
-  BoxBlur boxBlur;
-  window.setSolidBgColor(255);
+  BoxBlur boxBlur(window);
+
+  PointHandler pointHandler(WINDOW_WIDTH, WINDOW_HEIGHT);
+  Swarm swarm(SWARM_SIZE, pointHandler);
 
   SDL_Event event;
   bool loopInProgress = true;
 
   while (loopInProgress) {
     swarm.fillWindowWithRandomPoints(window);
-    boxBlur.applyBlur(window);
+    boxBlur.applyBlur();
     window.updateWindowContent();
 
     while (SDL_PollEvent(&event)) {

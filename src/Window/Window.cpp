@@ -29,6 +29,8 @@ Window::Window(string name, int width, int height) {
     SDL_TEXTUREACCESS_STATIC,
     this->windowWidth,
     this->windowHeight);
+
+  this->setSolidBgColor(255);
 };
 
 Window::~Window() {
