@@ -18,11 +18,11 @@ Point * PointHandler::createDimensionPoint() const {
 }
 
 bool PointHandler::isPointYCoordinateOutOfDimension(int y) const {
-  return y < this->minY || y > this->maxY;
+  return y <= this->minY || y >= this->maxY;
 }
 
 bool PointHandler::isPointXCoordinateOutOfDimension(int x) const {
-  return x < this->minX || x > this->maxX;
+  return x <= this->minX || x >= this->maxX;
 }
 
 bool PointHandler::isPointOutOfDimension(int x, int y) const {
@@ -41,5 +41,5 @@ void PointHandler::fixPointMovingDirection(Point * point) const {
 }
 
 int PointHandler::getPointIndexInPixelsBuffer(int x, int y) const {
-  return (y - 1) * this->maxX + x;
+  return y * this->maxX + x;
 }

@@ -20,10 +20,10 @@ void initializeApp() {
 int main() {
   initializeApp();
   
-  const int WINDOW_WIDTH = 80;
-  const int WINDOW_HEIGHT = 60;
+  const int WINDOW_WIDTH = 800;
+  const int WINDOW_HEIGHT = 600;
   const int PIXELS_AMOUNT = WINDOW_HEIGHT * WINDOW_WIDTH;
-  const int SWARM_SIZE = 0;
+  const int SWARM_SIZE = 1;
 
   Window window("fire-entity", WINDOW_WIDTH, WINDOW_HEIGHT);
   BoxBlur boxBlur;
