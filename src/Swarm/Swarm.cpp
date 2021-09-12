@@ -30,14 +30,17 @@ void Swarm::fillWindowWithRandomPoints(Window &window) {
     Point *point = this->points[i];
     point->updatePosition();
 
-    const bool pointOutOfDimension = this->pointHandler.isPointOutOfDimension(point);
+    const int &x = point->x;
+    const int &y = point->y;
+
+    const bool pointOutOfDimension = this->pointHandler.isPointOutOfDimension(x, y);
 
     if (pointOutOfDimension) {
       this->pointHandler.fixPointMovingDirection(point);
       return;
     }
 
-    const int pointIndex = this->pointHandler.getPointIndexInPixelsBuffer(point);
+    const int pointIndex = this->pointHandler.getPointIndexInPixelsBuffer(x, y);
     window.setPixelColorByIndex(pointIndex, this->pointColor);
   }
 }

@@ -9,12 +9,9 @@
 using namespace std;
 
 class BoxBlur {
-  private:
-    Window &window;
-
   public:
-    BoxBlur(Window &window);
-    void applyBlur() const;
+    BoxBlur() {};
+    void applyBlur(Window &window, PointHandler &pointHandler) const;
 };
 
 #endif // !BOX_BLUR

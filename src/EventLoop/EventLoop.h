@@ -5,6 +5,7 @@
 #include "../Window/Window.h"
 #include "../Swarm/Swarm.h"
 #include "../BoxBlur/BoxBlur.h"
+#include "../PointHandler/PointHandler.h"
 
 class EventLoop {
   private:
@@ -12,10 +13,11 @@ class EventLoop {
     Window &window;
     Swarm &swarm;
     BoxBlur &boxBlur;
+    PointHandler &pointHandler;
     bool loopInProgress;
 
   public:
-    EventLoop(Window &window, Swarm &swarm, BoxBlur &boxBlur);
+    EventLoop(Window &window, Swarm &swarm, BoxBlur &boxBlur, PointHandler &pointHandler);
     void start();
     void stop();
 };

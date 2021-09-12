@@ -19,9 +19,9 @@ class PointHandler {
     Point * createDimensionPoint() const;
     bool isPointYCoordinateOutOfDimension(int y) const;
     bool isPointXCoordinateOutOfDimension(int x) const;
-    bool isPointOutOfDimension(Point * point) const;
+    bool isPointOutOfDimension(int x, int y) const;
     void fixPointMovingDirection(Point * point) const;
-    int getPointIndexInPixelsBuffer(Point * point) const;
+    int getPointIndexInPixelsBuffer(int x, int y) const;
 };
 
 #endif // !POINT_HANDLER
