@@ -47,8 +47,7 @@ void BoxBlur::applyBlur(Window &window, PointHandler &pointHandler) const {
       int totalGreen = 0;
       int totalBlue = 0;
 
-      // NOTE: existed and not empty bg pixels amount
-      int relevantNeighborsAmount = 0;
+      int existedNeighborsAmount = 0;
 
       for (int neighborIndex = 0; neighborIndex < neighborsAmount; neighborIndex++) {
         const int * neighborCoordinates = neighborsCoordinates[neighborIndex];
@@ -62,50 +61,38 @@ void BoxBlur::applyBlur(Window &window, PointHandler &pointHandler) const {
           continue;
         }
         
-
+        existedNeighborsAmount++;
         const int neighborIndexInPixelsBuffer =
           pointHandler.getPointIndexInPixelsBuffer(neighborColIndex, neighborRowIndex);
 
-
-
         const Uint32 pixel = bufferSnapshot[neighborIndexInPixelsBuffer];
-
 
         const Uint8 neighborRed = pixel >> 24;
         const Uint8 neighborGreen = pixel >> 16;
         const Uint8 neighborBlue = pixel >> 8;
-
-        /*
-          TODO: Not solid, we should have one source of truth, when declaring
-          window solid bg, and when making such check, maybe even class, with
-          const member and method to check point color.
-        */
-        const bool neighborIsEmptyPoint =
-          neighborRed == 255 && neighborGreen == 255 && neighborBlue == 255;
-
-        if (neighborIsEmptyPoint) {
-          continue;
-        }
-
-
-        relevantNeighborsAmount++;
 
         totalRed += neighborRed;
         totalGreen += neighborGreen;
         totalBlue += neighborBlue;
       }
 
-      if (!relevantNeighborsAmount) {
+      if (!existedNeighborsAmount) {
         continue;
       }
 
-
       Uint8 bluredColor[] = {
-        totalRed / relevantNeighborsAmount,
-        totalGreen / relevantNeighborsAmount,
-        totalBlue / relevantNeighborsAmount,
-        255,
+        totalRed / existedNeighborsAmount,
+        totalGreen / existedNeighborsAmount,
+        totalBlue / existedNeighborsAmount,
       };
+
+      // if ((int)bluredColor[0] != 255) {
+      //   cout << "avg Red " << (int)bluredColor[0] << endl;
+      //   cout << "avg Green " << (int)bluredColor[1] << endl;
+      //   cout << "avg Blue " << (int)bluredColor[2] << endl;
+      //   cout << "existedNeighborsAmount " << existedNeighborsAmount << endl;
+      //   cout << "\n" << endl;
+      // }
 
       const int targetPixelIndex = pointHandler.getPointIndexInPixelsBuffer(colIndex, rowIndex);
 
