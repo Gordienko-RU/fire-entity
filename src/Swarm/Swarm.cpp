@@ -35,9 +35,13 @@ void Swarm::fillWindowWithRandomPoints(Window &window) {
 
     const bool pointOutOfDimension = this->pointHandler.isPointOutOfDimension(x, y);
 
+    cout << "\n" << endl;
+    cout << "random point coordinates x & y: " << x << " " << y << endl;
+    cout << "\n" << endl;
+
     if (pointOutOfDimension) {
       this->pointHandler.fixPointMovingDirection(point);
-      return;
+      continue;
     }
 
     const int pointIndex = this->pointHandler.getPointIndexInPixelsBuffer(x, y);
