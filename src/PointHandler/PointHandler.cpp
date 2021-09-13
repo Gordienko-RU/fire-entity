@@ -18,11 +18,11 @@ Point * PointHandler::createDimensionPoint() const {
 }
 
 bool PointHandler::isPointYCoordinateOutOfDimension(int y) const {
-  return y < this->minY || y > this->maxY;
+  return y < this->minY || y > this->maxY - 1;
 }
 
 bool PointHandler::isPointXCoordinateOutOfDimension(int x) const {
-  return x < this->minX || x > this->maxX;
+  return x < this->minX || x > this->maxX - 1;
 }
 
 bool PointHandler::isPointOutOfDimension(int x, int y) const {
