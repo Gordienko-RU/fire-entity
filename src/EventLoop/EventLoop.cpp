@@ -25,10 +25,26 @@ void EventLoop::stop() {
 void EventLoop::start() {
   this->loopInProgress = true;
 
+  this->swarm.fillWindowWithRandomPoints(this->window);
+  this->boxBlur.applyBlur(this->window, this->pointHandler);
+  this->window.updateWindowContent();
+
+  this->swarm.fillWindowWithRandomPoints(this->window);
+  this->boxBlur.applyBlur(this->window, this->pointHandler);
+  this->window.updateWindowContent();
+
+  this->swarm.fillWindowWithRandomPoints(this->window);
+  this->boxBlur.applyBlur(this->window, this->pointHandler);
+  this->window.updateWindowContent();
+
+  // this->swarm.fillWindowWithRandomPoints(this->window);
+  // this->boxBlur.applyBlur(this->window, this->pointHandler);
+  // this->window.updateWindowContent();
+
   while (this->loopInProgress) {
-    this->swarm.fillWindowWithRandomPoints(this->window);
-    this->boxBlur.applyBlur(this->window, this->pointHandler);
-    this->window.updateWindowContent();
+    // this->swarm.fillWindowWithRandomPoints(this->window);
+    // this->boxBlur.applyBlur(this->window, this->pointHandler);
+    // this->window.updateWindowContent();
 
     while (SDL_PollEvent(&this->event)) {
       switch (this->event.type) {

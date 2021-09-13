@@ -25,6 +25,9 @@ void BoxBlur::applyBlur(Window &window, PointHandler &pointHandler) const {
   const int &windowWidth = window.windowWidth;
   const int &windowHeight = window.windowHeight;
 
+  cout << "new iteration: ------------------------- " << endl;
+  cout << "\n " << endl;
+
   for (int colIndex = 0; colIndex < windowWidth; colIndex++) {
     for (int rowIndex = 0; rowIndex < windowHeight; rowIndex++) {
       const int neighborsAmount = 9;
@@ -57,6 +60,13 @@ void BoxBlur::applyBlur(Window &window, PointHandler &pointHandler) const {
         const bool neighborOutOfDimension =
           pointHandler.isPointOutOfDimension(neighborColIndex, neighborRowIndex);
 
+        // if (rowIndex == 0 && colIndex == 0) {
+        //   cout << "neighborColIndex " << neighborColIndex << endl;
+        //   cout << "neighborRowIndex " << neighborRowIndex << endl;
+        //   cout << "neighborOutOfDimension " << neighborOutOfDimension << endl;
+        //   cout << "\n " << endl;
+        // }
+
         if (neighborOutOfDimension) {
           continue;
         }
@@ -76,23 +86,23 @@ void BoxBlur::applyBlur(Window &window, PointHandler &pointHandler) const {
         totalBlue += neighborBlue;
       }
 
-      if (!existedNeighborsAmount) {
-        continue;
-      }
-
       Uint8 bluredColor[] = {
         totalRed / existedNeighborsAmount,
         totalGreen / existedNeighborsAmount,
         totalBlue / existedNeighborsAmount,
       };
 
-      // if ((int)bluredColor[0] != 255) {
-      //   cout << "avg Red " << (int)bluredColor[0] << endl;
-      //   cout << "avg Green " << (int)bluredColor[1] << endl;
-      //   cout << "avg Blue " << (int)bluredColor[2] << endl;
-      //   cout << "existedNeighborsAmount " << existedNeighborsAmount << endl;
-      //   cout << "\n" << endl;
-      // }
+      if (bluredColor[0] != 255) {
+        cout << "colIndex " << colIndex << endl;
+        cout << "rowIndex " << rowIndex << endl;
+
+        cout << "avg Red " << (int)bluredColor[0] << endl;
+        cout << "avg Green " << (int)bluredColor[1] << endl;
+        cout << "avg Blue " << (int)bluredColor[2] << endl;
+
+        cout << "existedNeighborsAmount " << existedNeighborsAmount << endl;
+        cout << "\n" << endl;
+      }
 
       const int targetPixelIndex = pointHandler.getPointIndexInPixelsBuffer(colIndex, rowIndex);
 
