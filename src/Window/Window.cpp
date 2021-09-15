@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "./Window.h"
+#include "../Color.h"
 
 Window::Window(string name, int width, int height) {
   this->windowWidth = width;
@@ -30,7 +31,9 @@ Window::Window(string name, int width, int height) {
     this->windowWidth,
     this->windowHeight);
 
-  this->setSolidBgColor(255);
+  const Color bgColor(255, 255, 255);
+
+  this->setSolidBgColor(bgColor);
 };
 
 Window::~Window() {
@@ -47,33 +50,30 @@ void Window::updateWindowContent() const {
   SDL_RenderPresent(this->renderer);
 }
 
-void Window::setPixelColor(Uint32 *pixel, Uint8 *colorValues) const {
-  Uint8 *pToSinglePixel = (Uint8 *) pixel;
+void Window::setPixelColorByIndex(int index, Color color) const {
+  Uint32 finalColorToSet = 0;
   const int amountOfBytesToSet = sizeof(Uint32);
 
-  for (Uint8 i = 0; i < amountOfBytesToSet; i++) {
-    pToSinglePixel[i] = colorValues[i];
-  }
-}
+  finalColorToSet += color.red;
+  finalColorToSet <<= 8;
 
-void Window::setPixelColorByIndex(int index, Uint8 *colorValues) const {
-  Uint32 color = 0;
-  const int amountOfBytesToSet = sizeof(Uint32);
+  finalColorToSet += color.green;
+  finalColorToSet <<= 8;
 
-  for (Uint8 i = 0; i < amountOfBytesToSet; i++) {
-    color += colorValues[i];
-    color <<= 8;
-  }
+  finalColorToSet += color.blue;
+  finalColorToSet <<= 8;
 
-  this->pixelsBuffer[index] = color;
+  finalColorToSet += 255;
+
+  this->pixelsBuffer[index] = finalColorToSet;
 }
 
 Uint32* Window::getPixel(int index) const {
   return this->pixelsBuffer + index;
 }
 
-void Window::setSolidBgColor(int rgbValue) const {
-  const int bufferByteSize = this->pixelsAmount * sizeof(Uint32);
-
-  memset(this->pixelsBuffer, rgbValue, bufferByteSize);
+void Window::setSolidBgColor(Color color) const {
+  for (int i = 0; i < this->pixelsAmount; i++) {
+    this->setPixelColorByIndex(i, color);
+  }
 }

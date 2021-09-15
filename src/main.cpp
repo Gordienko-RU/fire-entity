@@ -17,13 +17,16 @@ void initializeApp() {
   srand(time(0));
 }
 
+// TODO: Try to make it faster.
+// TODO: Make sure that we have constant speed here, so even on slow machines progress will be the same.
+
 int main() {
   initializeApp();
   
-  const int WINDOW_WIDTH = 5;
-  const int WINDOW_HEIGHT = 5;
+  const int WINDOW_WIDTH = 800;
+  const int WINDOW_HEIGHT = 600;
   const int PIXELS_AMOUNT = WINDOW_HEIGHT * WINDOW_WIDTH;
-  const int SWARM_SIZE = 1;
+  const int SWARM_SIZE = 100;
 
   Window window("fire-entity", WINDOW_WIDTH, WINDOW_HEIGHT);
   BoxBlur boxBlur;

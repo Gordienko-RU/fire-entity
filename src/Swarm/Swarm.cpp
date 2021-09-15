@@ -10,9 +10,7 @@
 #include "../Window/Window.h"
 
 Swarm::Swarm(int size, PointHandler &pointHandler)
-  : size(size), pointHandler(pointHandler) {
-  this->pointColor = new Uint8[4];
-  fill_n(this->pointColor, 4, 0);
+  : size(size), pointHandler(pointHandler), pointColor(255, 140, 0) {
 
   this->points = new Point * [size];
 
@@ -34,10 +32,6 @@ void Swarm::fillWindowWithRandomPoints(Window &window) {
     const int &y = point->y;
 
     const bool pointOutOfDimension = this->pointHandler.isPointOutOfDimension(x, y);
-
-    cout << "\n" << endl;
-    cout << "random point coordinates x & y: " << x << " " << y << endl;
-    cout << "\n" << endl;
 
     if (pointOutOfDimension) {
       this->pointHandler.fixPointMovingDirection(point);

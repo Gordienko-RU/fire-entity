@@ -7,13 +7,14 @@
 #include "../PointHandler/PointHandler.h"
 #include "../PointHandler/Point/Point.h"
 #include "../Window/Window.h"
+#include "../Color.h"
 
 using namespace std;
 
 class Swarm {
   private:
     int size;
-    Uint8 *pointColor;
+    Color pointColor;
     PointHandler &pointHandler;
 
   public:

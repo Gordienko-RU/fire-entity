@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include <string>
+#include "../Color.h"
 
 using namespace std;
 
@@ -19,9 +20,8 @@ class Window {
 
     void blurPixels();
     void updateWindowContent() const;
-    void setSolidBgColor(int rgbValue) const;
-    void setPixelColor(Uint32 *pixel, Uint8 *colorValues) const;
-    void setPixelColorByIndex(int index, Uint8 *colorValues) const;
+    void setSolidBgColor(Color color) const;
+    void setPixelColorByIndex(int index, Color color) const;
 
     Uint32* getPixel(int index) const;
 

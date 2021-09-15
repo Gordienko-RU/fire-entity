@@ -6,6 +6,7 @@
 #include "./BoxBlur.h"
 #include "../Window/Window.h"
 #include "../PointHandler/PointHandler.h"
+#include "../Color.h"
 
 void BoxBlur::applyBlur(Window &window, PointHandler &pointHandler) const {
   const int pixelsAmount = window.pixelsAmount;
@@ -24,9 +25,6 @@ void BoxBlur::applyBlur(Window &window, PointHandler &pointHandler) const {
   */
   const int &windowWidth = window.windowWidth;
   const int &windowHeight = window.windowHeight;
-
-  cout << "new iteration: ------------------------- " << endl;
-  cout << "\n " << endl;
 
   for (int colIndex = 0; colIndex < windowWidth; colIndex++) {
     for (int rowIndex = 0; rowIndex < windowHeight; rowIndex++) {
@@ -51,6 +49,7 @@ void BoxBlur::applyBlur(Window &window, PointHandler &pointHandler) const {
       int totalBlue = 0;
 
       int existedNeighborsAmount = 0;
+      Uint8 blues[9];
 
       for (int neighborIndex = 0; neighborIndex < neighborsAmount; neighborIndex++) {
         const int * neighborCoordinates = neighborsCoordinates[neighborIndex];
@@ -59,13 +58,6 @@ void BoxBlur::applyBlur(Window &window, PointHandler &pointHandler) const {
 
         const bool neighborOutOfDimension =
           pointHandler.isPointOutOfDimension(neighborColIndex, neighborRowIndex);
-
-        // if (rowIndex == 0 && colIndex == 0) {
-        //   cout << "neighborColIndex " << neighborColIndex << endl;
-        //   cout << "neighborRowIndex " << neighborRowIndex << endl;
-        //   cout << "neighborOutOfDimension " << neighborOutOfDimension << endl;
-        //   cout << "\n " << endl;
-        // }
 
         if (neighborOutOfDimension) {
           continue;
@@ -81,32 +73,22 @@ void BoxBlur::applyBlur(Window &window, PointHandler &pointHandler) const {
         const Uint8 neighborGreen = pixel >> 16;
         const Uint8 neighborBlue = pixel >> 8;
 
+        blues[existedNeighborsAmount - 1] = neighborBlue;
+
         totalRed += neighborRed;
         totalGreen += neighborGreen;
         totalBlue += neighborBlue;
       }
 
-      Uint8 bluredColor[] = {
-        totalRed / existedNeighborsAmount,
-        totalGreen / existedNeighborsAmount,
-        totalBlue / existedNeighborsAmount,
-      };
+      const Uint8 finalRed = totalRed / existedNeighborsAmount;
+      const Uint8 finalGreen = totalGreen / existedNeighborsAmount;
+      const Uint8 finalBlue = totalBlue / existedNeighborsAmount;
 
-      if (bluredColor[0] != 255) {
-        cout << "colIndex " << colIndex << endl;
-        cout << "rowIndex " << rowIndex << endl;
-
-        cout << "avg Red " << (int)bluredColor[0] << endl;
-        cout << "avg Green " << (int)bluredColor[1] << endl;
-        cout << "avg Blue " << (int)bluredColor[2] << endl;
-
-        cout << "existedNeighborsAmount " << existedNeighborsAmount << endl;
-        cout << "\n" << endl;
-      }
+      const Color finalPixelColor(finalRed, finalGreen, finalBlue);
 
       const int targetPixelIndex = pointHandler.getPointIndexInPixelsBuffer(colIndex, rowIndex);
 
-      window.setPixelColorByIndex(targetPixelIndex, bluredColor);
+      window.setPixelColorByIndex(targetPixelIndex, finalPixelColor);
     }
   }
 }
